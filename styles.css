@@ -199,6 +199,13 @@ body {
     font-size: 1rem;
     font-weight: 500;
   }
+
+  .option label {
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #707070;
+    padding-left: .4rem;
+  }
 }
 
 @media (max-width: 375px) {
