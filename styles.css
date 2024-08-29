@@ -190,7 +190,18 @@ body {
   opacity: 0.8;
 }
 
-@media (max-width: 376px) {
+@media (max-width: 390px) {
+  .container {
+    width: 350px;
+  }
+
+  .input-box input {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 375px) {
   .container {
     width: 350px;
   }
