@@ -8,7 +8,7 @@ const ps = {
 const scroll = document.querySelector('.scroll'),
       scrollNumber = document.querySelector('.details span'),
       indicator = document.querySelector('.pass-indicator'),
-      passInput = document.querySelector('.input-box input'),
+      passInput = document.querySelector('.input'),
       btn = document.querySelector('.generate-btn'),
       copy = document.querySelector('.material-symbols-outlined');
 
@@ -31,14 +31,38 @@ function password (maxNumber) {
     pass += passString[random];
   }
 
-  const response = [pass, passString];
+  let response = [pass, passString];
 
   if (checkPassword(response[0], response[1]) === false) {
     return password(maxNumber);
   } else {
+    // const pass = passColor(response[0])
+    // response[0] = pass
     return response; 
   }
 }
+
+
+function passColor(pass) {
+  let result = '';
+  const passArray = pass.split('');
+
+  passArray.forEach(symbol => {
+    if (ps.numbers.includes(symbol)) {
+      result += `<span style=\"color: rgb(66, 66, 250);\">${symbol}</span>`;
+    }
+    else if (ps.symbols.includes(symbol)){
+      result += `<span style=\"color: rgb(199, 0, 0);\">${symbol}</span>`;
+    }
+    else {
+      result += `${symbol}`;
+    }
+  }) 
+
+  return result;
+  
+}
+
 
 function checkPassword(str, passString) {
   if (passString.includes(`${ps.lowercase}`)) {
@@ -75,6 +99,7 @@ function checkPassword(str, passString) {
   return true;
 }
 
+
 function changeIndicatorColor() {
   if (scroll.value > 8 && scroll.value <= 12) {
     indicator.classList.remove('weak', 'strong', 'midStrong');
@@ -91,40 +116,40 @@ function changeIndicatorColor() {
   }
 }
 
-function removeCopy() {
-  copy.classList.remove('greenCopy');
-  copy.textContent = 'copy_all';
+
+function insertPassword() {
+  passWord = password(scroll.value)[0];
+  const colorPassword = passColor(passWord)
+  passInput.innerHTML = colorPassword;
 }
 
-
 btn.addEventListener('click', () => {
-  passWord = password(scroll.value)[0];
-  passInput.value = passWord;
-  removeCopy();
+  insertPassword()
 });
   
-passWord = password(scroll.value)[0];
-passInput.value = passWord;
+insertPassword()
 
 scroll.addEventListener('input', () => {
   scrollNumber.textContent = scroll.value;
   changeIndicatorColor();
-  passWord = password(scroll.value)[0];
-  passInput.value = passWord;
-  removeCopy();
+  insertPassword()
 });
 
 document.querySelectorAll('.option input').forEach( item => {
   item.addEventListener('change', () => {
-    removeCopy();
-    passWord = password(scroll.value)[0];
-    passInput.value = passWord;
+    insertPassword()
   });
 });
 
 copy.addEventListener('click', () => {
   copy.classList.add('greenCopy');
   copy.textContent = 'priority';
+
+  setTimeout (() => {
+    copy.classList.remove('greenCopy');
+    copy.textContent = 'copy_all';
+  }, 2000)
+
   navigator.clipboard.writeText(`${passWord}`);
 });
 
