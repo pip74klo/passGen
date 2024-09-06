@@ -49,10 +49,13 @@ function passColor(pass) {
 
   passArray.forEach(symbol => {
     if (ps.numbers.includes(symbol)) {
-      result += `<span style=\"color: rgb(66, 66, 250);\">${symbol}</span>`;
+      result += `<span style="color: rgb(66, 66, 250);">${symbol}</span>`;
     }
     else if (ps.symbols.includes(symbol)){
-      result += `<span style=\"color: rgb(199, 0, 0);\">${symbol}</span>`;
+      result += `<span style="color: orange;">${symbol}</span>`;
+    }
+    else if (ps.lowercase.includes(symbol)){
+      result += `<span style="color: brown;">${symbol}</span>`;
     }
     else {
       result += `${symbol}`;
@@ -119,25 +122,25 @@ function changeIndicatorColor() {
 
 function insertPassword() {
   passWord = password(scroll.value)[0];
-  const colorPassword = passColor(passWord)
+  const colorPassword = passColor(passWord);
   passInput.innerHTML = colorPassword;
 }
 
 btn.addEventListener('click', () => {
-  insertPassword()
+  insertPassword();
 });
   
-insertPassword()
+insertPassword();
 
 scroll.addEventListener('input', () => {
   scrollNumber.textContent = scroll.value;
   changeIndicatorColor();
-  insertPassword()
+  insertPassword();
 });
 
 document.querySelectorAll('.option input').forEach( item => {
   item.addEventListener('change', () => {
-    insertPassword()
+    insertPassword();
   });
 });
 
@@ -148,7 +151,7 @@ copy.addEventListener('click', () => {
   setTimeout (() => {
     copy.classList.remove('greenCopy');
     copy.textContent = 'copy_all';
-  }, 2000)
+  }, 2000);
 
   navigator.clipboard.writeText(`${passWord}`);
 });
