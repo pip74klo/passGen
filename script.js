@@ -46,7 +46,10 @@ function password (maxNumber) {
 function passColor(pass) {
   let result = '';
   const passArray = pass.split('');
-
+  const options = document.querySelector('.options');
+  
+  const activeInputs = options.querySelectorAll('input:checked');
+  
   passArray.forEach(symbol => {
     if (ps.numbers.includes(symbol)) {
       result += `<span style="color: rgb(66, 66, 250);">${symbol}</span>`;
@@ -60,7 +63,17 @@ function passColor(pass) {
     else {
       result += `${symbol}`;
     }
-  }) 
+  });
+
+  if (activeInputs.length === 1) {
+    activeInputs[0].setAttribute('disabled', 'true');
+    console.log(activeInputs[0]);
+    
+  } else {
+    activeInputs.forEach(input => {
+      input.removeAttribute('disabled');
+    });
+  }
 
   return result;
   

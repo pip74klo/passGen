@@ -123,6 +123,7 @@ body {
 .scroll[type="range"] {
   margin: 0; 
   padding: 0;
+  /* accent-color: red; */
 }
 
 .pass-length input {
@@ -153,7 +154,7 @@ body {
 }
 
 .option:first-child {
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 .option:first-child input {
   opacity: .7;
@@ -163,6 +164,19 @@ body {
   height: 16px;
   width: 16px;
   cursor: pointer;
+}
+
+.lowercase {
+  accent-color: brown;
+}
+.uppercase {
+  accent-color: #000;
+}
+.numbers {
+  accent-color: rgb(66, 66, 250);
+}
+.symbols {
+  accent-color: orange;
 }
 
 .option label {
